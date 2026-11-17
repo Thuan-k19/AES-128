@@ -2,7 +2,7 @@
 
 [![Verilog HDL](https://img.shields.io/badge/Language-Verilog%20HDL-blue.svg)](https://en.wikipedia.org/wiki/Verilog)
 [![FPGA Target](https://img.shields.io/badge/Target-Xilinx%20Kintex--7-red.svg)](https://www.xilinx.com/products/silicon-devices/fpga/kintex-7.html)
-[![Throughput](https://img.shields.io/badge/Throughput-26.7%20Gbps-brightgreen.svg)]()
+![Throughput](https://img.shields.io/badge/Throughput-26.7%20Gbps-brightgreen.svg)
 [![Standard](https://img.shields.io/badge/Standard-NIST%20FIPS--197-orange.svg)](https://csrc.nist.gov/publications/detail/fips/197/final)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -65,27 +65,32 @@ This project delivers an RTL-level hardware implementation optimized for wire-sp
 
 ### 1. 10-Stage Fully-Pipelined Datapath
 
-```text
-                  ┌────────────────────────────────────────────────────────┐
-Plaintext [127:0] ┤ (XOR) ──>[Stage 0]──>[Round 1]──>[Stage 1]──> ... ──> ├─┐
-      Key [127:0] ┤                                                        │ │
-                  └────────────────────────────────────────────────────────┘ │
-┌────────────────────────────────────────────────────────────────────────────┘
-│
-└──> ... ──>[Round 9]──>[Stage 9]──>[Round 10]──>[Ciphertext Reg] ──> Ciphertext [127:0]
+```mermaid
+flowchart LR
+    PT["plaintext [127:0]"] --> XOR(("^"))
+    KEY["key [127:0]"] --> XOR
+    XOR --> S0["Reg: stage_data[0]"]
+    KEY --> K0["Reg: stage_key[0]"]
+
+    S0 --> R1["AESround (1..9)"]
+    K0 --> R1
+    R1 --> S9["Reg: stage_data[9] / stage_key[9]"]
+
+    S9 --> R10["AESfinal (Round 10)"]
+    R10 --> CT["Reg: ciphertext [127:0]"]
 ```
 
 - **Round 0 (Initial `AddRoundKey`):**  
-  The input `Plaintext` is bitwise XORed directly with the initial `Key` and registered into `stage_data[0]`.
+  At the rising edge of `clk` (when `reset == 0`), `plaintext` is bitwise XORed with `key` and registered into `stage_data[0]`, while the initial key is registered into `stage_key[0]`.
 
 - **Rounds 1 through 9 (`AESround`):**  
-  Each intermediate stage executes the four standard AES transformations in sequence, coupled with on-the-fly round key generation:
-  * **Datapath flow:** `State_in` $\rightarrow$ `SubBytes` $\rightarrow$ `ShiftRows` $\rightarrow$ `MixColumns` $\rightarrow$ `AddRoundKey` (`^ Key_out`) $\rightarrow$ `State_out`
-  * **Key schedule flow:** `Key_in` $\rightarrow$ `KeyRound` $\rightarrow$ `Key_out`
+  Nine generated combinational `AESround` instances (`round_gen[1..9]`) feed intermediate pipeline registers `stage_data[1..9]` and `stage_key[1..9]`:
+  * **Datapath flow:** `stage_data[i-1]` $\rightarrow$ `SubBytes` $\rightarrow$ `ShiftRows` $\rightarrow$ `MixColumns` $\rightarrow$ `AddRoundKey` (`^ round_key_out[i]`) $\rightarrow$ `stage_data[i]`
+  * **Key schedule flow:** `stage_key[i-1]` $\rightarrow$ `KeyRound` $\rightarrow$ `stage_key[i]`
 
 - **Round 10 (`AESfinal`):**  
-  In accordance with NIST FIPS-197, `MixColumns` is bypassed in the final round:
-  * **Final round flow:** `State_in` $\rightarrow$ `SubBytes` $\rightarrow$ `ShiftRows` $\rightarrow$ `AddRoundKey` (`^ Key_out`) $\rightarrow$ `Ciphertext`
+  In accordance with NIST FIPS-197, `MixColumns` is bypassed in the final round, and the result is registered directly into `ciphertext`:
+  * **Final round flow:** `stage_data[9]` $\rightarrow$ `SubBytes` $\rightarrow$ `ShiftRows` $\rightarrow$ `AddRoundKey` (`^ Key_10`) $\rightarrow$ `ciphertext`
 
 ---
 
@@ -94,10 +99,12 @@ Plaintext [127:0] ┤ (XOR) ──>[Stage 0]──>[Round 1]──>[Stage 1]─�
 | Port Name | Direction | Width | Description |
 | :--- | :---: | :---: | :--- |
 | `clk` | Input | 1-bit | System clock (rising-edge triggered) |
-| `rst_n` | Input | 1-bit | Asynchronous/synchronous reset signal for pipeline registers |
+| `reset` | Input | 1-bit | **Active-high synchronous reset** (clears `stage_data[0:9]`, `stage_key[0:9]`, and `ciphertext` to `0` when `reset = 1` at `posedge clk`) |
 | `plaintext` | Input | 128-bit | Input 128-bit plaintext data block |
 | `key` | Input | 128-bit | Input 128-bit initial cipher key ($K_0$) |
-| `ciphertext` | Output | 128-bit | Encrypted 128-bit ciphertext output (valid after 11 clock cycles) |
+| `ciphertext` | Output | 128-bit | Registered 128-bit ciphertext output (valid 11 clock cycles after input capture) |
+
+> **Pipeline Timing & Handshake Note:** `AES_pipeline` operates as a deterministic, free-running streaming pipeline without `valid`/`ready` handshaking ports. Once `reset` is de-asserted (`0`), external control logic must sample `ciphertext` **11 clock cycles** after presenting the corresponding `plaintext` and `key` pair.
 
 ---
 
@@ -114,7 +121,7 @@ Plaintext [127:0] ┤ (XOR) ──>[Stage 0]──>[Round 1]──>[Stage 1]─�
 
 ### 4. On-the-Fly Key Schedule Engine
 
-At round $r$, given the current 128-bit key words $\{w_0, w_1, w_2, w_3\}$, the next round key words $\{w_4, w_5, w_6, w_7\}$ are computed synchronously as follows:
+At round $r$, given the current 128-bit key words $\{w_0, w_1, w_2, w_3\}$, the next round key words $\{w_4, w_5, w_6, w_7\}$ are computed combinationally as follows:
 
 ```text
 w[4] = w[0] ^ SubWord(RotWord(w[3])) ^ Rcon[r]
@@ -195,7 +202,7 @@ tb_AESpipeline.v:68: $finish called at 186000 (1ps)
 
 1. Open Vivado and load `AES_finish/AES_finish.xpr`.
 2. Under **Flow Navigator**, click **Run Simulation** $\rightarrow$ **Run Behavioral Simulation**.
-3. Inspect the waveforms at clock cycles 11 and 12 to verify back-to-back streaming ciphertext outputs.
+3. Inspect the waveforms at clock cycles 11 and 12 after `reset` de-assertion to verify back-to-back streaming ciphertext outputs.
 
 ---
 
@@ -282,6 +289,6 @@ This project is licensed under the [MIT License](LICENSE) - see the LICENSE file
   title = {High-Throughput AES-128 Pipelined Hardware Accelerator on FPGA},
   year = {2026},
   publisher = {GitHub},
-  howpublished = {\url{https://github.com/Thuan-k19/AES-128}}
+  howpublished = {\url{[https://github.com/Thuan-k19/AES-128](https://github.com/Thuan-k19/AES-128)}}
 }
 ```
