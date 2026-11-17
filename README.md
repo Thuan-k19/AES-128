@@ -9,7 +9,6 @@
 A high-performance, fully-pipelined hardware implementation of the **AES-128 (Advanced Encryption Standard)** encryption algorithm written in Verilog HDL. The design incorporates a **10-stage pipeline** architecture combined with **on-the-fly key expansion**, achieving ultra-high throughput and optimal hardware resource utilization on Xilinx Kintex-7 FPGAs.
 
 - **Author:** Cao Minh Thuan
-- **Class:** CE213.Q21.VMTN
 - **Advisor:** Dr. Tran Thi Diem
 - **Institution:** Faculty of Computer Engineering, University of Information Technology, VNU-HCM (UIT)
 
