@@ -49,7 +49,7 @@ module tb_AES_pipeline;
         
         // Đợi 11 chu kỳ xung nhịp cho Test Case 1 chạy ra khỏi Pipeline
         repeat(10) @(posedge clk);
-        
+        #1;
         if (ciphertext === 128'h69c4e0d86a7b0430d8cdb78070b4c55a)
             $display("Test Case 1: PASSED");
         else
@@ -57,7 +57,7 @@ module tb_AES_pipeline;
 
         // Đợi thêm 1 chu kỳ xung nhịp nữa cho Test Case 2 ra khỏi Pipeline
         @(posedge clk);
-        
+        #1;
         if (ciphertext === 128'h3925841d02dc09fbdc118597196a0b32)
             $display("Test Case 2: PASSED");
         else

@@ -1,0 +1,18 @@
+# ModelSim / QuestaSim
+work/
+transcript
+*.wlf
+*.cr.mti
+*.mpf
+
+# Vivado build outputs & logs
+*.log
+*.jou
+*.dcp
+*.rpt
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+AES_finish/
