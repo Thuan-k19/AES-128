@@ -1,0 +1,435 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Mon May  4 12:28:02 2026
+# Process ID: 13792
+# Current directory: D:/nckh/AES_algorithm/code/AES_finish/AES_finish.runs/synth_1
+# Command line: vivado.exe -log AES_pipeline.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source AES_pipeline.tcl
+# Log file: D:/nckh/AES_algorithm/code/AES_finish/AES_finish.runs/synth_1/AES_pipeline.vds
+# Journal file: D:/nckh/AES_algorithm/code/AES_finish/AES_finish.runs/synth_1\vivado.jou
+# Running On: MSI, OS: Windows, CPU Frequency: 2096 MHz, CPU Physical cores: 12, Host memory: 7908 MB
+#-----------------------------------------------------------
+source AES_pipeline.tcl -notrace
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 448.047 ; gain = 163.777
+Command: read_checkpoint -auto_incremental -incremental D:/nckh/AES_algorithm/code/AES_finish/AES_finish.srcs/utils_1/imports/synth_1/AES_pipeline.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from D:/nckh/AES_algorithm/code/AES_finish/AES_finish.srcs/utils_1/imports/synth_1/AES_pipeline.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top AES_pipeline -part xc7k160tiffv676-2L
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k160ti'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k160ti'
+INFO: [Device 21-403] Loading part xc7k160tiffv676-2L
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 30204
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1295.199 ; gain = 410.770
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'AES_pipeline' [D:/nckh/AES_algorithm/code/AES_pipeline.v:1]
+INFO: [Synth 8-6157] synthesizing module 'AESround' [D:/nckh/AES_algorithm/code/AESround.v:1]
+INFO: [Synth 8-6157] synthesizing module 'KeyRound' [D:/nckh/AES_algorithm/code/KeyRound.v:1]
+INFO: [Synth 8-226] default block is never used [D:/nckh/AES_algorithm/code/KeyRound.v:46]
+INFO: [Synth 8-6155] done synthesizing module 'KeyRound' (0#1) [D:/nckh/AES_algorithm/code/KeyRound.v:1]
+INFO: [Synth 8-6157] synthesizing module 'SubBytes' [D:/nckh/AES_algorithm/code/SubBytes.v:1]
+INFO: [Synth 8-6157] synthesizing module 'Sbox' [D:/nckh/AES_algorithm/code/Sbox.v:1]
+INFO: [Synth 8-226] default block is never used [D:/nckh/AES_algorithm/code/Sbox.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'Sbox' (0#1) [D:/nckh/AES_algorithm/code/Sbox.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'SubBytes' (0#1) [D:/nckh/AES_algorithm/code/SubBytes.v:1]
+INFO: [Synth 8-6157] synthesizing module 'ShiftRows' [D:/nckh/AES_algorithm/code/ShiftRows.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'ShiftRows' (0#1) [D:/nckh/AES_algorithm/code/ShiftRows.v:1]
+INFO: [Synth 8-6157] synthesizing module 'MixColumns' [D:/nckh/AES_algorithm/code/MixColumns.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'MixColumns' (0#1) [D:/nckh/AES_algorithm/code/MixColumns.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'AESround' (0#1) [D:/nckh/AES_algorithm/code/AESround.v:1]
+INFO: [Synth 8-6157] synthesizing module 'AESfinal' [D:/nckh/AES_algorithm/code/AESfinal.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'AESfinal' (0#1) [D:/nckh/AES_algorithm/code/AESfinal.v:1]
+WARNING: [Synth 8-7071] port 'key_out' of module 'AESfinal' is unconnected for instance 'round10' [D:/nckh/AES_algorithm/code/AES_pipeline.v:29]
+WARNING: [Synth 8-7023] instance 'round10' of module 'AESfinal' has 5 connections declared, but only 4 given [D:/nckh/AES_algorithm/code/AES_pipeline.v:29]
+WARNING: [Synth 8-324] index 10 out of range [D:/nckh/AES_algorithm/code/AES_pipeline.v:41]
+WARNING: [Synth 8-324] index 10 out of range [D:/nckh/AES_algorithm/code/AES_pipeline.v:42]
+INFO: [Synth 8-6155] done synthesizing module 'AES_pipeline' (0#1) [D:/nckh/AES_algorithm/code/AES_pipeline.v:1]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1395.027 ; gain = 510.598
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1395.027 ; gain = 510.598
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1395.027 ; gain = 510.598
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.120 . Memory (MB): peak = 1395.027 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [D:/nckh/AES_algorithm/code/aes.xdc]
+Finished Parsing XDC File [D:/nckh/AES_algorithm/code/aes.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1501.066 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.070 . Memory (MB): peak = 1501.066 ; gain = 0.000
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 1501.066 ; gain = 616.637
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k160tiffv676-2L
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 1501.066 ; gain = 616.637
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1501.066 ; gain = 616.637
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1501.066 ; gain = 616.637
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input    128 Bit         XORs := 11    
+	   3 Input     32 Bit         XORs := 10    
+	   2 Input     32 Bit         XORs := 30    
+	   2 Input      8 Bit         XORs := 180   
+	   4 Input      8 Bit         XORs := 99    
+	   5 Input      8 Bit         XORs := 36    
+	   3 Input      8 Bit         XORs := 18    
++---Registers : 
+	              128 Bit    Registers := 21    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 600 (col length:100)
+BRAMs: 650 (col length: RAMB18 100 RAMB36 50)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:02:35 ; elapsed = 00:02:46 . Memory (MB): peak = 1501.066 ; gain = 616.637
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++------------+--------------------------+---------------+----------------+
+|Module Name | RTL Object               | Depth x Width | Implemented As | 
++------------+--------------------------+---------------+----------------+
+|KeyRound    | c                        | 256x8         | LUT            | 
+|KeyRound    | c                        | 256x8         | LUT            | 
+|KeyRound    | c                        | 256x8         | LUT            | 
+|KeyRound    | c                        | 256x8         | LUT            | 
+|Sbox        | c                        | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[4].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[4].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[4].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[4].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[4].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[4].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | keyround/c               | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[4].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESround    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[0].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[1].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[2].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[3].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[4].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[5].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[6].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[7].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[8].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[9].sbox_inst/c  | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[10].sbox_inst/c | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[11].sbox_inst/c | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[12].sbox_inst/c | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[13].sbox_inst/c | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[14].sbox_inst/c | 256x8         | LUT            | 
+|AESfinal    | Sub/Sbox[15].sbox_inst/c | 256x8         | LUT            | 
++------------+--------------------------+---------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:02:41 ; elapsed = 00:02:52 . Memory (MB): peak = 1501.066 ; gain = 616.637
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:02:45 ; elapsed = 00:02:56 . Memory (MB): peak = 1540.539 ; gain = 656.109
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:02:49 ; elapsed = 00:03:00 . Memory (MB): peak = 1571.695 ; gain = 687.266
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:02:55 ; elapsed = 00:03:06 . Memory (MB): peak = 1584.332 ; gain = 699.902
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:02:55 ; elapsed = 00:03:06 . Memory (MB): peak = 1584.332 ; gain = 699.902
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:57 ; elapsed = 00:03:08 . Memory (MB): peak = 1584.332 ; gain = 699.902
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:02:57 ; elapsed = 00:03:08 . Memory (MB): peak = 1584.332 ; gain = 699.902
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:57 ; elapsed = 00:03:08 . Memory (MB): peak = 1584.332 ; gain = 699.902
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:57 ; elapsed = 00:03:08 . Memory (MB): peak = 1584.332 ; gain = 699.902
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |BUFG  |     1|
+|2     |LUT2  |   128|
+|3     |LUT5  |   658|
+|4     |LUT6  |  8840|
+|5     |MUXF7 |  3200|
+|6     |MUXF8 |  1591|
+|7     |FDRE  |  2688|
+|8     |IBUF  |   258|
+|9     |OBUF  |   128|
++------+------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:57 ; elapsed = 00:03:08 . Memory (MB): peak = 1584.332 ; gain = 699.902
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:02:47 ; elapsed = 00:03:06 . Memory (MB): peak = 1584.332 ; gain = 593.863
+Synthesis Optimization Complete : Time (s): cpu = 00:02:57 ; elapsed = 00:03:08 . Memory (MB): peak = 1584.332 ; gain = 699.902
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.193 . Memory (MB): peak = 1596.445 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 4791 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1602.219 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 5daed46d
+INFO: [Common 17-83] Releasing license: Synthesis
+38 Infos, 5 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:03:05 ; elapsed = 00:03:18 . Memory (MB): peak = 1602.219 ; gain = 1130.324
+INFO: [Common 17-1381] The checkpoint 'D:/nckh/AES_algorithm/code/AES_finish/AES_finish.runs/synth_1/AES_pipeline.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file AES_pipeline_utilization_synth.rpt -pb AES_pipeline_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon May  4 12:31:34 2026...
