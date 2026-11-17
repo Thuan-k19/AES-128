@@ -193,7 +193,7 @@ tb_AESpipeline.v:68: $finish called at 186000 (1ps)
 
 1. Launch ModelSim and open the workspace project `AES_finish.mpf` (or create a new `work` library and add all `.v` files).
 2. Click **Compile All**.
-3. Open the **Library** tab $\rightarrow$ expand `work` $\rightarrow$ right-click `tb_AESpipeline` $\rightarrow$ select **Simulate**.
+3. Open the **Library** tab $\rightarrow$ expand `work` $\rightarrow$ right-click `tb_AES_pipeline` (compiled from `tb_AESpipeline.v`) $\rightarrow$ select **Simulate**.
 4. In the transcript terminal, type `run -all` and inspect the waveform window.
 
 ---
@@ -289,6 +289,6 @@ This project is licensed under the [MIT License](LICENSE) - see the LICENSE file
   title = {High-Throughput AES-128 Pipelined Hardware Accelerator on FPGA},
   year = {2026},
   publisher = {GitHub},
-  howpublished = {\url{[https://github.com/Thuan-k19/AES-128](https://github.com/Thuan-k19/AES-128)}}
+  howpublished = {\url{https://github.com/Thuan-k19/AES-128}}
 }
 ```
