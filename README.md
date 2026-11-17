@@ -65,19 +65,27 @@ This project delivers an RTL-level hardware implementation optimized for wire-sp
 
 ### 1. 10-Stage Fully-Pipelined Datapath
 
-```
-Plaintext [127:0] ──┐
-                    ├──(+)──>[Stage 0 Reg]──>[ Round 1 ]──>[Stage 1 Reg]──> ... ──>[ Round 9 ]──>[Stage 9 Reg]──>[ Round 10 ]──>[Ciphertext Reg]
-      Key [127:0] ──┘                                                                                                                │
-                                                                                                                               [127:0] Ciphertext
+```text
+                  ┌────────────────────────────────────────────────────────┐
+Plaintext [127:0] ┤ (XOR) ──>[Stage 0]──>[Round 1]──>[Stage 1]──> ... ──> ├─┐
+      Key [127:0] ┤                                                        │ │
+                  └────────────────────────────────────────────────────────┘ │
+┌────────────────────────────────────────────────────────────────────────────┘
+│
+└──> ... ──>[Round 9]──>[Stage 9]──>[Round 10]──>[Ciphertext Reg] ──> Ciphertext [127:0]
 ```
 
-* **Round 0 (Initial AddRoundKey):** The input `Plaintext` is XORed directly with the initial `Key` and stored in `stage_data[0]`.
-* **Rounds 1 through 9 (`AESround`):** Each intermediate stage executes the full standard AES round transformation along with on-the-fly round key generation:
-  $$\text{State}_{in} \xrightarrow{\text{SubBytes}} \xrightarrow{\text{ShiftRows}} \xrightarrow{\text{MixColumns}} \oplus \text{Key}_{out} \longrightarrow \text{State}_{out}$$
-  $$\text{Key}_{in} \xrightarrow{\text{KeyRound}} \text{Key}_{out}$$
-* **Round 10 (`AESfinal`):** In accordance with FIPS-197, `MixColumns` is bypassed in the final round:
-  $$\text{State}_{in} \xrightarrow{\text{SubBytes}} \xrightarrow{\text{ShiftRows}} \oplus \text{Key}_{out} \longrightarrow \text{Ciphertext}$$
+* **Round 0 (Initial AddRoundKey):**  
+  The input `Plaintext` is bitwise XORed directly with the initial `Key` and registered into `stage_data[0]`.
+
+* **Rounds 1 through 9 (`AESround`):**  
+  Each intermediate stage executes the four standard AES transformations in sequence, combined with on-the-fly round key generation:
+  * **Datapath flow:** `State_in` $\rightarrow$ `SubBytes` $\rightarrow$ `ShiftRows` $\rightarrow$ `MixColumns` $\rightarrow$ `(+) Key_out` $\rightarrow$ `State_out`
+  * **Key schedule flow:** `Key_in` $\rightarrow$ `KeyRound` $\rightarrow$ `Key_out`
+
+* **Round 10 (`AESfinal`):**  
+  In accordance with FIPS-197, `MixColumns` is bypassed in the final round:
+  * **Final round flow:** `State_in` $\rightarrow$ `SubBytes` $\rightarrow$ `ShiftRows` $\rightarrow$ `(+) Key_out` $\rightarrow$ `Ciphertext`
 
 ---
 
@@ -96,12 +104,12 @@ Plaintext [127:0] ──┐
 
 At round $r$, given the current 128-bit key words $\{w_0, w_1, w_2, w_3\}$, the next round key words $\{w_4, w_5, w_6, w_7\}$ are computed synchronously as follows:
 
-$$\begin{aligned}
-w_4 &= w_0 \oplus \text{SubWord}(\text{RotWord}(w_3)) \oplus \text{Rcon}[r] \\
-w_5 &= w_1 \oplus w_4 \\
-w_6 &= w_2 \oplus w_5 \\
-w_7 &= w_3 \oplus w_6
-\end{aligned}$$
+```text
+w[4] = w[0] ^ SubWord(RotWord(w[3])) ^ Rcon[r]
+w[5] = w[1] ^ w[4]
+w[6] = w[2] ^ w[5]
+w[7] = w[3] ^ w[6]
+```
 
 ---
 
@@ -199,12 +207,11 @@ The design was fully synthesized and implemented on the **Xilinx Kintex-7** FPGA
 
 * **Target Clock Constraint:** $T_{clk} = 10.000\text{ ns}$ ($F = 100\text{ MHz}$)
 * **Worst Negative Slack (WNS):** $+5.218\text{ ns}$ (Clean timing closure, zero negative slack)
-* **Minimum Achievable Clock Period ($T_{min}$):**
-  $$T_{min} = T_{clk} - \text{WNS} = 10.000\text{ ns} - 5.218\text{ ns} = 4.782\text{ ns}$$
-* **Maximum Clock Frequency ($F_{max}$):**
+* **Minimum Achievable Clock Period ($T_{min}$):**  
+  $$T_{min} = T_{clk} - \text{WNS} = 10.000\text{ ns} - 5.218\text{ ns} = \mathbf{4.782\text{ ns}}$$
+* **Maximum Clock Frequency ($F_{max}$):**  
   $$F_{max} = \frac{1}{T_{min}} = \frac{1}{4.782\text{ ns}} \approx \mathbf{209.1\text{ MHz}}$$
-* **Maximum Throughput:**
-  Since the 10-stage pipeline processes one 128-bit block per clock cycle:
+* **Maximum Throughput:**  
   $$\text{Throughput} = \text{Block Size (bits)} \times F_{max} = 128\text{ bits} \times 209.1\text{ MHz} \approx \mathbf{26.7\text{ Gbps}}$$
 
 ---
